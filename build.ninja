@@ -1,0 +1,46 @@
+rule cxx
+  depfile = $out.d
+  command = $cxx -MMD -MF $out.d $cflags -c $in -o $out
+  description = CC $out
+
+rule link
+  command = $cxx $lflags -o $out $in $libs
+  description = LINK $out
+
+builddir = build
+cxx = g++
+lflags = -Wall -rdynamic -pthread
+libs = -lncurses
+cflags_common = -Wall -std=c++11
+
+# release
+
+cflags = $cflags_common -O3 -DNDEBUG
+obj = $builddir/obj_release
+
+build $obj/Console.o: cxx Console.cpp
+build $obj/Dynamics.o: cxx Dynamics.cpp
+build $obj/Game.o: cxx Game.cpp
+build $obj/main.o: cxx main.cpp
+build 2048.exe: link $obj/Console.o $obj/Dynamics.o $obj/Game.o $obj/main.o
+build 2048_release: phony 2048.exe
+
+# debug
+
+cflags = $cflags_common -O0 -g -D_DEBUG
+obj = $builddir/obj_debug
+
+build $obj/Console.o: cxx Console.cpp
+build $obj/Dynamics.o: cxx Dynamics.cpp
+build $obj/Game.o: cxx Game.cpp
+build $obj/main.o: cxx main.cpp
+build 2048_debug.exe: link $obj/Console.o $obj/Dynamics.o $obj/Game.o $obj/main.o
+build 2048_debug: phony 2048_debug.exe
+
+# other targets
+
+build release: phony 2048_release
+build debug: phony 2048_debug
+
+build all: phony release debug
+default release
