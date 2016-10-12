@@ -28,19 +28,19 @@ namespace dmco {
 
   using std::size_t;
 
-  static const size_t GRID_SIZE = 4u;
+  constexpr size_t GRID_SIZE = 4u;
 
-  static const size_t NUMBER_OF_TILES_TO_ADD = 2u;
+  constexpr size_t NUMBER_OF_TILES_TO_ADD = 2u;
 
-  static const size_t MAXIMUM_TILE_SCORE = 2048u;
+  constexpr size_t MAXIMUM_TILE_SCORE = 2048u;
 
   struct Index {
-    Index(int x, int y) : x(x), y(y) {}
+    constexpr Index(int x, int y) : x(x), y(y) {}
     int x;
     int y;
   };
 
-  enum class Movement : std::int8_t {
+  enum class Movement : std::int_fast8_t {
     Left,
     Right,
     Up,

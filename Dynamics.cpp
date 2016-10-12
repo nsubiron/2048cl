@@ -41,7 +41,7 @@ namespace dmco {
 
       bool jump() {
         Self::getFirst(_index) = Self::getStart();
-        return ++Self::getSecond(_index) < GRID_SIZE;
+        return ++Self::getSecond(_index) < static_cast<int>(GRID_SIZE);
       }
 
       Index operator*() const {

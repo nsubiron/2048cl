@@ -22,7 +22,7 @@ static OSTREAM &operator<<(OSTREAM &out, const Game &game) {
   out << L"Score:           " << game.getScore() << std::endl;
   out << std::wstring(5u * GRID_SIZE, '-') << std::endl;
   for (int j = GRID_SIZE - 1; j >= 0; --j) {
-    for (int i = 0; i < GRID_SIZE; ++i) {
+    for (auto i = 0u; i < GRID_SIZE; ++i) {
       out << std::setw(5) << game.getTile(Index(i, j));
     }
     out << std::endl;
